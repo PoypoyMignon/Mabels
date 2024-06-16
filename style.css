@@ -302,7 +302,10 @@ button:hover {
     padding: 0;
     margin: 0;
     flex: 1;
-    max-width: 60%;
+    max-width: 40%;
+    color: #ddd;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .pos-order-list li {

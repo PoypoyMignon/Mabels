@@ -20,7 +20,7 @@ body {
     z-index: -1;
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 150vh;
 }
 
 #navbar__logo {
@@ -50,7 +50,6 @@ body {
     background: #ee0979; 
     background: -webkit-linear-gradient(to left, #ff6a00, #ee0979); 
     background: linear-gradient(to left, #ff6a00, #ee0979); 
-    
 }
 
 .pos-navbar__container {
@@ -158,7 +157,6 @@ body {
     margin-bottom: 5px;
     cursor: pointer;
 }
-
 
 .main {
     margin-left: 160px;
@@ -270,38 +268,6 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.order-container {
-    margin-top: 40px;
-    background: #131313;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
-.order-container form {
-    display: flex;
-    flex-direction: column;
-}
-
-.order-container .form-group {
-    margin-bottom: 15px;
-}
-
-.order-container label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.order-container input,
-.order-container select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-
 
 .pos-content-container {
     margin-left: 220px;
@@ -310,18 +276,33 @@ button:hover {
 
 .pos-order-container {
     position: fixed;
-    top: 50px;
-    right: 15px;
-    width: 500px;
-    height: 80vh;
-    background-color: #f9f9f9;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: auto;
+    background: linear-gradient(rgba(247, 28, 28, 0.5), rgba(255, 36, 36, 1)), url('IMG/Background.png') no-repeat center center;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 20px ;
+    margin-bottom: 10px;
+}
+.pos-order-container h2{
+    color: #ddd;
 }
 
 .pos-order-list {
     list-style: none;
     padding: 0;
+    margin: 0;
+    flex: 1;
+    max-width: 60%;
 }
 
 .pos-order-list li {
@@ -331,29 +312,19 @@ button:hover {
     justify-content: space-between;
 }
 
-.pos-order-item-info {
-    flex-grow: 1;
-}
-
 .pos-order-item-buttons {
-    flex-shrink: 0;
+    margin-left: 10px;
     display: flex;
-    align-items: center;
+    gap: 5px;
 }
 
-.pos-total-price {
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.pos-delete-button {
+.pos-order-item-buttons button {
     padding: 5px 10px;
     background-color: #ff0000;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
 }
 
 .pos-delete-button:hover {
@@ -362,18 +333,20 @@ button:hover {
 
 .pos-checkout-button {
     padding: 10px 20px;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #B60000;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     margin-top: 20px;
+    font-weight: 600;
 }
 
 .pos-checkout-button:hover {
     background: #ee0979; 
     background: -webkit-linear-gradient(to left, #ff6a00, #ee0979); 
     background: linear-gradient(to left, #ff6a00, #ee0979); 
+    color: #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -384,6 +357,16 @@ button:hover {
 .payment-method label {
     margin-bottom: 5px;
     font-weight: bold;
+    color: #ddd;
+    font-size: 16px;
+}
+
+.pos-total-price{
+    margin-bottom: 5px;
+    color: #ddd;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-right: 15px;
 }
 
 .payment-method select {
@@ -398,7 +381,6 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     color: #ffffff;
 }
-
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
@@ -429,7 +411,9 @@ button:hover {
         width: 100%;
         position: relative;
         top: 0;
-        right: 0;
+        left: 0;
+        transform: none;
+        margin-bottom: 20px;
     }
     .pos-menu {
         position: relative;
@@ -463,6 +447,12 @@ button:hover {
     }
     .pos-order-container {
         padding: 10px;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        margin-bottom: 20px;
     }
     .pos-order-list li {
         flex-direction: column;
@@ -472,48 +462,47 @@ button:hover {
         margin-top: 10px;
     }
 }
+
 /* Add these styles for the hamburger menu */
 .pos-navbar__toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
 }
 
 .pos-navbar__toggle .bar {
-  width: 25px;
-  height: 3px;
-  background-color: #fff;
-  margin: 4px 0;
-  transition: all 0.3s ease;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {
-  .pos-navbar__menu {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      position: absolute;
-      top: 60px;
-      left: -100%;
-      opacity: 0;
-      transition: all 0.5s ease;
-      background-color: #333;
-  }
+    .pos-navbar__menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        opacity: 0;
+        transition: all 0.5s ease;
+        background-color: #333;
+    }
 
-  .pos-navbar__menu.active {
-      left: 0;
-      opacity: 1;
-  }
+    .pos-navbar__menu.active {
+        left: 0;
+        opacity: 1;
+    }
 
-  .pos-navbar__toggle {
-      display: flex;
-  }
+    .pos-navbar__toggle {
+        display: flex;
+    }
 
-  .pos-navbar__container {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-  }
+    .pos-navbar__container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
-
-/* Other styles remain unchanged */

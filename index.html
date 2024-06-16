@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mabels  POS</title>
+    <link id="LOGO" rel="icon" type="image/x-icon" href="IMG/mabel.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body> 
+    
+    <img src="IMG/Background.png" alt="Background" id="Background-doodle">
+    
+    <!-- Top navigation bar -->
+    <nav class="pos-navbar">
+        <div class="pos-navbar__container">
+            <a href="index.html" id="navbar__logo" class="pos-navbar__logo">Mabels</a>
+            <div class="pos-navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="pos-navbar__menu">
+                <li class="pos-navbar__item">
+                    <a href="index.html" class="pos-navbar__links" id="home-page">POS</a>
+                </li>
+                <li class="pos-navbar__item">
+                    <a href="purchaseHistory.html" class="pos-navbar__links" id="about-page">Orders</a>
+                </li>
+                <li class="pos-navbar__item">
+                    <a href="inventory.html" class="pos-navbar__links" id="about-page">Inventory</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Side navigation -->
+    <div class="pos-menu" id="side-dishes-popup">
+        <a class="pos-menu-item" data-category="Side Dishes">Side dishes</a>
+        <a class="pos-menu-item" data-category="Barkada Meals">Barkada meals</a>
+        <a class="pos-menu-item" data-category="Noodles">Noodles</a>
+        <a class="pos-menu-item" data-category="Breakfast">Breakfast</a>
+        <a class="pos-menu-item" data-category="Pizza">Pizza</a>
+        <a class="pos-menu-item" data-category="Quesadilla">Quesadilla</a>
+        <a class="pos-menu-item" data-category="Meals">Meals</a>
+        <a class="pos-menu-item" data-category="Snacks">Snacks</a>
+        <a class="pos-menu-item" data-category="Rice Bowls">Rice bowls</a>
+    </div>
+
+    <!-- Content container -->
+    <div class="pos-content-container">
+        <div id="content" class="menu-container">
+            <img class="Mabels-Logo" src="IMG/mabel.png" alt="Opening Logo" >
+        </div>
+    </div>
+
+<!-- Order container -->
+<div id="order-container" class="pos-order-container">
+    <h2>Order List</h2>
+    <ul id="order-list" class="pos-order-list"></ul>
+    <p id="total-price" class="pos-total-price">Total: ₱0.00</p>
+    
+    <!-- Payment Method selection -->
+    <div class="payment-method">
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method" class="pos-payment-method">
+            <option value="cash">Cash</option>
+            <option value="gcash">GCash</option>
+        </select>
+    </div>
+
+    <button id="checkout-button" class="pos-checkout-button">Checkout</button>
+</div>
+
+    <div id="purchase-history"></div>
+
+
+    <script type="module" src="order.js"></script>
+</body>
+</html>

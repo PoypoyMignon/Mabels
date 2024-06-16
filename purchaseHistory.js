@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -95,7 +95,7 @@ document.getElementById('menu-form').addEventListener('submit', async (e) => {
 
     try {
         if (updateItemId) {
-            await updateOrder(updateItemId, { name: itemName, category: itemCategory, quantity: itemQuantity, payment: itemPayment });
+            await updateOrder(updateItemId, itemName, itemCategory, itemQuantity, itemPayment);
             updateItemId = null;
         }
 
@@ -108,11 +108,22 @@ document.getElementById('menu-form').addEventListener('submit', async (e) => {
     }
 });
 
-async function updateOrder(id, order) {
+async function updateOrder(id, name, category, quantity, payment) {
     try {
-        const orderDoc = doc(db, "purchaseHistory", id);
-        await updateDoc(orderDoc, order);
-        alert("Order updated successfully!");
+        const orderDocRef = doc(db, "purchaseHistory", id);
+        const orderDocSnap = await getDoc(orderDocRef);
+        if (orderDocSnap.exists()) {
+            const order = orderDocSnap.data();
+            order.orderDetails[0].name = name;
+            order.orderDetails[0].category = category;
+            order.orderDetails[0].quantity = quantity;
+            order.paymentMethod = payment;
+            await updateDoc(orderDocRef, order);
+            alert("Order updated successfully!");
+        } else {
+            console.error("No such document!");
+            alert("No such document!");
+        }
     } catch (e) {
         console.error("Error updating order:", e);
         alert("Error updating order: " + e.message);

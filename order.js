@@ -7,7 +7,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyC0ThHyyFDXYKeC3xdhGLw-TQXpSYUxaQg",
     authDomain: "poypoy-project.firebaseapp.com",
     projectId: "poypoy-project",
-    storageBucket: "poypoy-project.appspot.com",
+    storageBucket: "poypoy-project",
     messagingSenderId: "723931945160",
     appId: "1:723931945160:web:d00f7a8baf99dfc380adfd",
     measurementId: "G-2GL6D5LP6W"
@@ -155,6 +155,12 @@ function toggleQuantitySelector(itemId, itemName, itemPrice, itemQuantity) {
 
 async function checkoutOrder() {
     const orderItems = document.querySelectorAll('#order-list li');
+    
+    if (orderItems.length === 0) {
+        alert("No orders selected. Please add items to your order before checking out.");
+        return;
+    }
+
     const updates = [];
     const orderDetails = [];
     
@@ -201,7 +207,6 @@ async function checkoutOrder() {
         alert("Error during checkout. Please try again.");
     }
 }
-
 
 async function saveOrderToHistory(orderDetails, paymentMethod) {
     try {

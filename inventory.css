@@ -9,6 +9,9 @@
   scroll-behavior: smooth;
 }
 
+body {
+  background: url('IMG/Background.png') repeat-y center center;
+}
 
 
 /* Navbar CSS here */
@@ -98,17 +101,20 @@
 /* Adding Menu CSS */
 button {
     padding: 10px 20px;
-    background-color: #000000;
-    color: rgb(255, 255, 255);
+    background-color: #fa8888;
+    color: rgb(255, 219, 219);
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
 }
 
 button:hover {
   background: #ee0979; 
   background: -webkit-linear-gradient(to left, #ff6a00, #ee0979); 
   background: linear-gradient(to left, #ff6a00, #ee0979); 
+  color: #ddd;
 }
 
 /* Menu Section */
@@ -151,9 +157,14 @@ button:hover {
 h3 {
   color: #131313;
   padding: 0 0 20px 20px;
-  font-size: 1.5rem;
+  font-size: 2rem;
   background: #ffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  display: flex;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 10px;
 }
 
 .menu-container .form-group {
@@ -172,31 +183,27 @@ h3 {
   font-size: 16px;
 }
 
-#inventory-list li button {
-  margin-left: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
 
 #inventory-list {
   list-style: none;
   padding: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  background: #ffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 #inventory-list li {
-  margin: 10px 0;
-  padding: 15px;
+  margin: 10px auto; /* Center vertically and horizontally */
+  padding: 25px;
   border: 1px solid #000000;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffff;
+  background: linear-gradient(rgba(247, 28, 28, 0.6), rgba(255, 36, 36, 0.9)), url('IMG/Background.png') no-repeat center center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   font-weight: bold;
   font-size: 1.2rem;
+  width: 70%; /* Adjust the width as needed */
 }
 
 .button-container {

@@ -9,19 +9,9 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+  background:url('IMG/Background.png') repeat-y center center;
 }
 
-#Background-doodle{
-    display: flex;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 150vh;
-}
 
 #navbar__logo {
     color: #fff;
@@ -165,7 +155,7 @@ body {
 
 .menu-container {
     width: 100%;
-    padding: 60px;
+    padding: 60px  0 190px 100px;
     justify-content: center;
     align-items: center;
 }
@@ -221,6 +211,12 @@ body {
     flex-direction: column; /* Added for responsiveness */
 }
 
+.menu-container h2{
+    font-size: 40px;
+    text-transform: uppercase;
+
+}
+
 .menu-input .logo {
     width: 150px;
     margin-bottom: 5px;
@@ -268,7 +264,6 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-
 .pos-content-container {
     margin-left: 220px;
     padding: 20px;
@@ -277,7 +272,7 @@ button:hover {
 .pos-order-container {
     position: fixed;
     bottom: 0;
-    left: 50%;
+    left: 60%;
     transform: translateX(-50%);
     width: 70%;
     height: auto;
@@ -290,10 +285,11 @@ button:hover {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    border-radius: 20px ;
+    border-radius: 20px;
     margin-bottom: 10px;
 }
-.pos-order-container h2{
+
+.pos-order-container h2 {
     color: #ddd;
 }
 
@@ -346,9 +342,9 @@ button:hover {
 }
 
 .pos-checkout-button:hover {
-    background: #ee0979; 
-    background: -webkit-linear-gradient(to left, #ff6a00, #ee0979); 
-    background: linear-gradient(to left, #ff6a00, #ee0979); 
+    background: #ee0979;
+    background: -webkit-linear-gradient(to left, #ff6a00, #ee0979);
+    background: linear-gradient(to left, #ff6a00, #ee0979);
     color: #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
@@ -364,7 +360,7 @@ button:hover {
     font-size: 16px;
 }
 
-.pos-total-price{
+.pos-total-price {
     margin-bottom: 5px;
     color: #ddd;
     font-weight: 700;
@@ -379,37 +375,39 @@ button:hover {
     font-size: 16px;
 }
 
-.payment-method select:hover {
-    background: #34e89e;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .navbar {
         padding: 10px 20px;
     }
+
     .navbar__menu {
         display: none;
     }
+
     .navbar__container {
         flex-direction: column;
     }
+
     .Menu {
         width: 100%;
         padding-top: 60px;
     }
+
     .content-container {
         margin-left: 0;
     }
+
     .menu-display {
         margin-left: 0;
     }
+
     .menu-input-container {
         width: 100%;
         padding: 20px;
     }
+
     .pos-order-container {
         width: 100%;
         position: relative;
@@ -418,11 +416,13 @@ button:hover {
         transform: none;
         margin-bottom: 20px;
     }
+
     .pos-menu {
         position: relative;
         top: 0;
         width: 100%;
     }
+
     .pos-content-container {
         margin-left: 0;
     }
@@ -432,22 +432,31 @@ button:hover {
     #navbar__logo {
         font-size: 1.1rem;
     }
+
     .navbar__links {
         font-size: 1rem;
         margin-left: 10px;
     }
+
     .Menu a {
         font-size: 1rem;
     }
-    .content-container, .menu-display, .menu-input-container {
+
+    .content-container,
+    .menu-display,
+    .menu-input-container {
         padding: 10px;
     }
+
     .order-container {
         padding: 10px;
     }
-    .order-container input, .order-container select {
+
+    .order-container input,
+    .order-container select {
         font-size: 14px;
     }
+
     .pos-order-container {
         padding: 10px;
         width: 100%;
@@ -457,10 +466,12 @@ button:hover {
         transform: none;
         margin-bottom: 20px;
     }
+
     .pos-order-list li {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .pos-order-item-buttons {
         margin-top: 10px;
     }

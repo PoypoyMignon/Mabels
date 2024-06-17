@@ -17,13 +17,14 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let updateItemId = null;
+let currentOrder = null; // Store the current order details
 
 async function fetchPurchaseHistory() {
     try {
         const historyList = document.getElementById('history-list');
         historyList.innerHTML = '';
         const querySnapshot = await getDocs(collection(db, "purchaseHistory"));
-        
+
         if (querySnapshot.empty) {
             console.log("No documents found in the purchaseHistory collection.");
             return;
@@ -33,12 +34,17 @@ async function fetchPurchaseHistory() {
             const order = doc.data();
             console.log("Fetched order:", order); // Debugging: Log the order data
 
-            const li = document.createElement('li');
+            const orderContainer = document.createElement('div');
+            orderContainer.className = 'order-container';
+
+            const orderDetailsDiv = document.createElement('div');
+            orderDetailsDiv.className = 'order-details';
+
             const orderDetails = order.orderDetails; // Access orderDetails array
             const paymentMethod = order.paymentMethod || "N/A"; // Access paymentMethod
-            
+
             orderDetails.forEach(detail => {
-                li.innerHTML += `Name: ${detail.name || "N/A"} - Category: ${detail.category || "N/A"} - Quantity: ${detail.quantity || "N/A"} - Option: ${detail.option || "N/A"} - Payment: ${paymentMethod}<br>`;
+                orderDetailsDiv.innerHTML += `Name: ${detail.name || "N/A"} - Category: ${detail.category || "N/A"} - Quantity: ${detail.quantity || "N/A"} - Option: ${detail.option || "N/A"} - Payment: ${paymentMethod}<br>`;
             });
 
             const buttonContainer = document.createElement('div');
@@ -55,8 +61,9 @@ async function fetchPurchaseHistory() {
             buttonContainer.appendChild(deleteButton);
             buttonContainer.appendChild(updateButton);
 
-            li.appendChild(buttonContainer);
-            historyList.appendChild(li);
+            orderContainer.appendChild(orderDetailsDiv);
+            orderContainer.appendChild(buttonContainer);
+            historyList.appendChild(orderContainer);
         });
     } catch (error) {
         console.error("Error fetching purchase history:", error);
@@ -77,55 +84,121 @@ async function deleteOrder(id) {
 }
 
 function populateUpdateForm(id, order) {
-    const firstDetail = order.orderDetails[0]; // Assume we are updating the first detail
-    document.getElementById('item-name').value = firstDetail.name || "";
-    document.getElementById('item-category').value = firstDetail.category || "";
-    document.getElementById('item-quantity').value = firstDetail.quantity || "";
+    currentOrder = order; // Store the current order details
+    const itemList = document.getElementById('item-list');
+    itemList.innerHTML = ''; // Clear the item list
+
+    order.orderDetails.forEach((detail, index) => {
+        const itemRow = document.createElement('div');
+        itemRow.className = 'item-row';
+
+        const nameLabel = document.createElement('span');
+        nameLabel.textContent = `Name: ${detail.name || "N/A"} - Category: ${detail.category || "N/A"}`;
+        itemRow.appendChild(nameLabel);
+
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'number';
+        quantityInput.value = detail.quantity || "";
+        quantityInput.dataset.index = index;
+        itemRow.appendChild(quantityInput);
+
+        const deleteItemButton = document.createElement('button');
+        deleteItemButton.textContent = 'Delete';
+        deleteItemButton.onclick = () => deleteItem(id, index);
+        itemRow.appendChild(deleteItemButton);
+
+        itemList.appendChild(itemRow);
+    });
+
     document.getElementById('item-payment').value = order.paymentMethod || "";
     updateItemId = id;
     document.getElementById('menu-modal').style.display = 'block';
 }
 
+function closeModal() {
+    document.getElementById('menu-modal').style.display = 'none';
+    document.getElementById('menu-form').reset();
+}
+
+document.getElementById('close-modal').addEventListener('click', closeModal);
+
 document.getElementById('menu-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const itemName = document.getElementById('item-name').value;
-    const itemCategory = document.getElementById('item-category').value;
-    const itemQuantity = parseInt(document.getElementById('item-quantity').value);
-    const itemPayment = document.getElementById('item-payment').value;
+    const updatedOrderDetails = [];
+    const itemRows = document.querySelectorAll('#item-list .item-row');
+
+    itemRows.forEach(row => {
+        const index = row.querySelector('input[type="number"]').dataset.index;
+        const quantity = row.querySelector('input[type="number"]').value;
+        const name = row.querySelector('span').textContent.split(' - ')[0].replace('Name: ', '');
+
+        updatedOrderDetails.push({
+            name,
+            quantity: parseInt(quantity),
+            category: currentOrder.orderDetails[index].category,
+            option: currentOrder.orderDetails[index].option,
+        });
+    });
+
+    const updatedOrder = {
+        orderDetails: updatedOrderDetails,
+        paymentMethod: document.getElementById('item-payment').value,
+    };
 
     try {
-        if (updateItemId) {
-            await updateOrder(updateItemId, itemName, itemCategory, itemQuantity, itemPayment);
-            updateItemId = null;
-        }
-
+        await updateDoc(doc(db, "purchaseHistory", updateItemId), updatedOrder);
+        await updateInventoryQuantities(updatedOrderDetails); // Update inventory quantities
+        alert("Order updated successfully!");
+        closeModal();
         fetchPurchaseHistory();
-        document.getElementById('menu-modal').style.display = 'none';
-        document.getElementById('menu-form').reset();
     } catch (e) {
         console.error("Error updating order:", e);
         alert("Error updating order: " + e.message);
     }
 });
 
-async function updateOrder(id, name, category, quantity, payment) {
+async function deleteItem(orderId, itemIndex) {
+    const docRef = doc(db, "purchaseHistory", orderId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const order = docSnap.data();
+        order.orderDetails.splice(itemIndex, 1);
+
+        try {
+            await updateDoc(docRef, order);
+            alert("Item deleted successfully!");
+            populateUpdateForm(orderId, order);
+            fetchPurchaseHistory(); // Refresh the order list after deletion
+        } catch (e) {
+            console.error("Error deleting item:", e);
+            alert("Error deleting item: " + e.message);
+        }
+    } else {
+        console.log("No such document!");
+    }
+}
+
+async function updateInventoryQuantities(orderDetails) {
     try {
-        const orderDocRef = doc(db, "purchaseHistory", id);
-        const orderDocSnap = await getDoc(orderDocRef);
-        if (orderDocSnap.exists()) {
-            const order = orderDocSnap.data();
-            order.orderDetails[0].name = name;
-            order.orderDetails[0].category = category;
-            order.orderDetails[0].quantity = quantity;
-            order.paymentMethod = payment;
-            await updateDoc(orderDocRef, order);
-            alert("Order updated successfully!");
-        } else {
-            console.error("No such document!");
-            alert("No such document!");
+        for (const detail of orderDetails) {
+            const itemName = detail.name;
+            const itemQuantity = detail.quantity;
+
+            const inventoryRef = doc(db, "inventory", itemName);
+            const inventorySnap = await getDoc(inventoryRef);
+
+            if (inventorySnap.exists()) {
+                const inventoryItem = inventorySnap.data();
+                const updatedQuantity = inventoryItem.quantity - itemQuantity;
+
+                await updateDoc(inventoryRef, { quantity: updatedQuantity });
+            } else {
+                console.log(`Item ${itemName} not found in inventory.`);
+            }
         }
     } catch (e) {
-        console.error("Error updating order:", e);
-        alert("Error updating order: " + e.message);
+        console.error("Error updating inventory quantities:", e);
+        alert("Error updating inventory quantities: " + e.message);
     }
 }

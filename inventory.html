@@ -6,31 +6,31 @@
     <title>Mabels Inventory</title>
     <link rel="icon" type="image/x-icon" href="IMG/mabel.png">
     <link rel="stylesheet" href="inventory.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
-    <!-- Top navigation bar -->
-    <nav class="pos-navbar">
-        <div class="pos-navbar__container">
-            <a href="index.html" id="navbar__logo" class="pos-navbar__logo">Mabels</a>
-            <div class="pos-navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="pos-navbar__menu">
-                <li class="pos-navbar__item">
-                    <a href="index.html" class="pos-navbar__links" id="home-page">POS</a>
-                </li>
-                <li class="pos-navbar__item">
-                    <a href="purchaseHistory.html" class="pos-navbar__links" id="about-page">Orders</a>
-                </li>
-                <li class="pos-navbar__item">
-                    <a href="inventory.html" class="pos-navbar__links" id="about-page">Inventory</a>
-                </li>
-
-            </ul>
+<!-- Top navigation bar -->
+<nav class="pos-navbar">
+    <div class="pos-navbar__container">
+        <a href="index.html" id="navbar__logo" class="pos-navbar__logo">Mabels</a>
+        <div class="pos-navbar__toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
-    </nav>
+        <ul class="pos-navbar__menu" id="nav-links">
+            <li class="pos-navbar__item">
+                <a href="index.html" class="pos-navbar__links" id="home-page">POS</a>
+            </li>
+            <li class="pos-navbar__item">
+                <a href="purchaseHistory.html" class="pos-navbar__links" id="about-page">Orders</a>
+            </li>
+            <li class="pos-navbar__item">
+                <a href="inventory.html" class="pos-navbar__links" id="about-page">Inventory</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
     <!-- Admin Section for Inventory Management -->
@@ -74,5 +74,6 @@
     <div id="menu-display"></div>
 
     <script type="module" src="inventory.js"></script>
+    <script src="respo.js"></script>
 </body>
 </html>

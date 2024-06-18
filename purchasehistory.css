@@ -1,108 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  scroll-behavior: smooth;
-}
-
-body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
     background: url('IMG/Background.png') repeat-y center center;
   }
-
-#Background-doodle{
-    display: flex;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 150vh;
-}
-
-#navbar__logo {
-    color: #fff;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    font-weight: bolder;
-}
-
-.pos-navbar {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    padding: 10px 20px; /* Adjusted for responsiveness */
-    justify-content: space-between;
-    width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    background: #ee0979; 
-    background: -webkit-linear-gradient(to left, #ff6a00, #ee0979); 
-    background: linear-gradient(to left, #ff6a00, #ee0979); 
-}
-
-.pos-navbar__container {
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.pos-navbar__logo {
-    color: white;
-    font-size: 24px;
-    text-decoration: none;
-}
-
-.pos-navbar__menu {
-    display: flex;
-    align-items: center;
-    list-style: none;
-}
-
-.pos-navbar__item {
-    margin-left: 20px;
-}
-
-.pos-navbar__links {
-    position: relative;
-    font-size: 1.3rem;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 600;
-    margin-left: 20px; /* Adjusted for responsiveness */
-}
-
-.pos-navbar__links::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 3px;
-    background: #ffffff;
-    border-radius: 5px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s;
-}
-
-.pos-navbar__links:hover::after {
-    transform-origin: left;
-    transform: scaleX(1);
-}
+  
+  #navbar__logo {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      font-weight: bolder;
+  }
+  
+  .pos-navbar {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      padding: 10px 20px;
+      justify-content: space-between;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to left, #ff6a00, #ee0979); 
+  }
+  
+  .pos-navbar__container {
+      display: flex;
+      justify-content: space-between;
+      z-index: 1;
+      width: 100%;
+      margin: 0 auto;
+  }
+  
+  .pos-navbar__logo {
+      color: white;
+      font-size: 24px;
+      text-decoration: none;
+  }
+  
+  .pos-navbar__menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+  }
+  
+  .pos-navbar__item {
+      margin-left: 20px;
+  }
+  
+  .pos-navbar__links {
+      position: relative;
+      font-size: 1.3rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 20px;
+  }
+  
+  .pos-navbar__links::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 5px;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .5s;
+  }
+  
+  .pos-navbar__links:hover::after {
+      transform-origin: left;
+      transform: scaleX(1);
+  }
 
 #content h2 {
     margin-top: 0;
@@ -206,22 +192,40 @@ button:hover {
     color: #ffffff;
     margin-bottom: 10px;
 }
+.menu-container{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.menu-container h2{
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
 
 /* Other existing styles */
+/* Modal Styles */
 #menu-modal {
     display: none;
     position: fixed;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
+    width: 100%;
+    max-width: 1200px; /* Add a maximum width */
     padding: 60px 20px 15px 20px;
     border-top: 1px solid #ccc;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     z-index: 2;
     border-radius: 30px;
     background: linear-gradient(rgba(247, 28, 28, 0.5), rgba(255, 36, 36, 0.7)), url('IMG/Background.png') no-repeat center center;
+    background-size: cover;
     color: #ddd;
+    overflow: auto; /* Ensure content is scrollable if it overflows */
 }
 
 #close-modal {
@@ -233,7 +237,7 @@ button:hover {
     font-size: 20px;
     border-radius: 15px 15px 15px 0;
     cursor: pointer;
-    color: rgb(255, 0, 0); /* Adjust the color as needed */
+    color: rgb(255, 0, 0);
 }
 
 #close-modal:hover {
@@ -252,9 +256,10 @@ button:hover {
 
 #payment-container {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    gap: 10px; /* Space between select and button */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Allow wrapping of elements */
 }
 
 #item-payment {
@@ -274,27 +279,27 @@ button:hover {
     display: flex;
     align-items: center;
     gap: 5px;
+    flex-wrap: wrap; /* Allow wrapping of elements */
 }
 
 .item-row span,
 .item-row input,
 .item-row button {
-    flex: 1; /* Make all child elements take equal space */
+    flex: 1;
 }
-
-
 
 .item-row input {
     padding: 10px;
     border-radius: 10px;
     border: none;
-    width: 150px; /* Reduced width for the form input */
+    width: 100%; /* Make the input full width in its container */
 }
 
 .form-row {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 10px;
+    flex-wrap: wrap; /* Allow wrapping of elements */
 }
 
 .form-row label {
@@ -302,25 +307,26 @@ button:hover {
 }
 
 .form-row select {
-    flex-grow: 0; /* Prevent the select element from growing */
-    width: 100px; /* Set a fixed width for the select element */
-    padding: 5px; /* Adjust padding as needed */
+    flex-grow: 0;
+    width: 100px;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 14px;
 }
 
 .update-button {
-    flex-shrink: 0; /* Prevent button from growing */
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px; /* Adjust padding for consistent size */
+    flex-shrink: 0;
+    background-color: #ffffff;
+    color: rgb(255, 0, 0);
+    padding: 10px 15px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     width: 150px;
 }
 
 .update-button:hover {
-    background-color: #45a049;
+    background-color: #ff0000;
 }
+
 

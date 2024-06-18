@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const contentContainer = document.getElementById('content');
     const checkoutButton = document.getElementById('checkout-button');
 
+
     const categoryContent = await fetchAndOrganizeInventoryItems(db);
 
     links.forEach(link => {
